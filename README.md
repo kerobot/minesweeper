@@ -29,7 +29,7 @@ Python 3.13.2
 ```powershell
 > pyenv install 3.13.2
 > pyenv global 3.13.2
-> git clone xxxxxx/minesweeper
+> git clone https://github.com/xxxxxxxx/minesweeper.git
 > cd .\minesweeper\
 > pyenv local 3.13.2 
 > poetry env use C:\Users\xxxxxxxx\.pyenv\pyenv-win\versions\3.13.2\python.exe
