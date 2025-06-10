@@ -89,7 +89,10 @@ class MinesweeperBoard:
         # フラグのON/OFF切り替え
         flag_on = self.game.toggle_flag(r, c)
         btn = self.buttons[r][c]
-        btn.config(text="🚩" if flag_on else "")
+        if flag_on:
+            btn.config(text="🚩", fg="red")  # 旗は赤色で表示！
+        else:
+            btn.config(text="", fg="black")
         # 旗の数が変わったらステータス更新
         self._update_status()
 
@@ -99,15 +102,24 @@ class MinesweeperBoard:
                 cell = self.game.board[r][c]
                 btn = self.buttons[r][c]
                 if cell.is_revealed:
+                    # 隣接地雷数に応じて色を変えるよ！
+                    if cell.adjacent == 1:
+                        num_fg = "blue"
+                    elif cell.adjacent == 2:
+                        num_fg = "green"
+                    elif cell.adjacent >= 3:
+                        num_fg = "red"
+                    else:
+                        num_fg = "black"
                     btn.config(
                         text=str(cell.adjacent) if cell.adjacent > 0 else "",
                         state=tk.DISABLED,
                         relief=tk.SUNKEN,
-                        disabledforeground="black",
+                        disabledforeground=num_fg,
                         bg="lightgrey",
                     )
                 elif cell.is_flagged:
-                    btn.config(text="🚩")
+                    btn.config(text="🚩", fg="red")  # 旗は赤色で表示！
                 else:
                     btn.config(
                         text="",
